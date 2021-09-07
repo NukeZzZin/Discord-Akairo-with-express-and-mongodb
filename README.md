@@ -1,19 +1,17 @@
-# Discord-Akairo-with-express-and-mongodb
-Discord-Akairo with express and mongodb ( Template )
-
 ## Installation
 ### Prerequisites
 - Install the [NodeJs](https://nodejs.org/en/).
 - Install the [Yarn](https://yarnpkg.com).
 - Add locales environments in `.env`.
 - Install Node Dependencies : `yarn`.
-
-##
-### Build, Develop & Start Project
+### Running 
 ```
 // for develop use
 yarn dev
 // for build/start use
 yarn build
 yarn start
+// for start on docker
+docker build -t discord .
+docker run -d -p 3000:3000 discord
 ```

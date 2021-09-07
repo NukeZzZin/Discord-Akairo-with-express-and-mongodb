@@ -1,48 +1,52 @@
 import { AkairoClient, CommandHandler, ListenerHandler } from "discord-akairo";
-import { Message } from "discord.js"
-import { join } from "path";
-import dotenv from "dotenv";
-
-dotenv.config();
+import discord from "discord.js";
+import path from "path";
+import Logger from "../utils/logger";
+import ExtendedClietInterface from "./interfaces/ExtendedCliet";
+import "dotenv/config";
 
 declare module "discord-akairo" {
     interface AkairoClient {
         commandHandler: CommandHandler;
         listenerHandler: ListenerHandler;
-        inhibitorHandler: InhibitorHandler
+        inhibitorHandler: InhibitorHandler;
+        mongooseProvider: MongooseProvider
+        conifg: ExtendedClietInterface;
+        logger: typeof Logger;
     }
 }
 
 export default class ExtendedCliet extends AkairoClient {
+    public config: ExtendedClietInterface;
     public listenerHandler: ListenerHandler = new ListenerHandler(this, {
-        directory: join(__dirname, "./handlers/events"),
+        directory: path.join(__dirname, "./handlers/events"),
     });
-
+    
     public commandHandler: CommandHandler = new CommandHandler(this, {
-        directory: join(__dirname, "./handlers/commands"),
+        directory: path.join(__dirname, "./handlers/commands"),
         prefix: "L!",
         allowMention: true,
         handleEdits: true,
         commandUtil: true,
         commandUtilLifetime: 3e5,
-        argumentDefaults: {
-            prompt: {
-                modifyStart: (message: Message) => {message.channel.send(`${message.author}, Aperte no \`✅\` para cancelar seu comando!`).then(msg =>  {msg.react('✅'); msg.delete({ timeout: 15e3 })})},
-                modifyRetry: (message: Message) => {message.channel.send(`${message.author}, Aperte no \`✅\` para cancelar seu comando!`).then(msg =>  {msg.react('✅'); msg.delete({ timeout: 15e3 })})},
-                timeout: (message: Message) => {message.channel.send(`Você demorou muito por isso seu comando foi cancelado.`).then(msg => msg.delete({ timeout: 15e3 }))},
-                ended: (message: Message) => {message.channel.send(`Você tentou muitas vezes por isso seu comando foi cancelado.`).then(msg => msg.delete({ timeout: 15e3 }))},
-                cancel: (message: Message) => {message.channel.send(`Seu comando foi cancelado...`).then(msg => msg.delete({ timeout: 15e3 }))},
-            },
-            otherwise: ""
-        },
     });
+
+    public constructor(conifg: ExtendedClietInterface) {
+        super({ ownerID: conifg.owners }, {
+            messageCacheLifetime: 3600,
+            shardCount: 2,
+            intents: new discord.Intents(32767) 
+        });
+        this.logger = Logger;
+        this.config = conifg;
+    }
 
     private async _init(): Promise<void> {
         this.commandHandler.useListenerHandler(this.listenerHandler);
         this.listenerHandler.setEmitters({
             commandHandler: this.commandHandler,
             listenerHandler: this.listenerHandler,
-            process,
+            process: process,
         });
         this.commandHandler.loadAll();
         this.listenerHandler.loadAll();

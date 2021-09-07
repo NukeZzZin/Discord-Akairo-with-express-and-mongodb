@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "mikestead.dotenv",
+        "editorconfig.editorconfig",
+        "ms-vscode.vscode-typescript-next",
+        "orta.vscode-jest",
+        "hansvn.instant-mongo",
+        "ms-azuretools.vscode-docker"
+    ]
+}
