@@ -1,5 +1,5 @@
 import { AkairoClient, CommandHandler, ListenerHandler } from "discord-akairo";
-import discord from "discord.js";
+import { Intents, Message } from "discord.js";
 import path from "path";
 import Logger from "../utils/logger";
 import ExtendedClietInterface from "./interfaces/ExtendedCliet";
@@ -10,7 +10,6 @@ declare module "discord-akairo" {
         commandHandler: CommandHandler;
         listenerHandler: ListenerHandler;
         inhibitorHandler: InhibitorHandler;
-        mongooseProvider: MongooseProvider
         conifg: ExtendedClietInterface;
         logger: typeof Logger;
     }
@@ -28,6 +27,7 @@ export default class ExtendedCliet extends AkairoClient {
         allowMention: true,
         handleEdits: true,
         commandUtil: true,
+        blockBots: true,
         commandUtilLifetime: 3e5,
     });
 
@@ -35,7 +35,7 @@ export default class ExtendedCliet extends AkairoClient {
         super({ ownerID: conifg.owners }, {
             messageCacheLifetime: 3600,
             shardCount: 2,
-            intents: new discord.Intents(32767) 
+            intents: new Intents(32767) 
         });
         this.logger = Logger;
         this.config = conifg;

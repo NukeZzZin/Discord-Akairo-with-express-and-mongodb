@@ -15,7 +15,6 @@ export default class PingCommand extends Command {
                 `💟 **API Latency**: ${this.client.ws.ping}ms`
             ].join("\n"))
             .setColor("RANDOM")
-            .setFooter(`${message.guild?.me?.nickname || this.client.user?.username} Ping`, String(this.client.user?.avatarURL({ dynamic: true })))
             .setTimestamp(Date.now())]
         }));
     }
