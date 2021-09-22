@@ -11,17 +11,17 @@ This project is just a simple template for a discord bot using **discord-akairo*
 - Install the [Yarn](https://yarnpkg.com).
 - Install the [Docker](https://www.docker.com).
 - Config the [Discord](https://discord.com/developers/applications).
-<!-- - Add locales environments in **.env** File. -->
-<!-- - Install Node Dependencies using `yarn` in your terminal. -->
+- Add locales environments in **.env** File.
+- Install Node Dependencies using `yarn` in your terminal.
 
-#### 🧶 Discord config
+<!-- #### 🧶 Discord config
 <details close="close">
     <summary><strong>⚙️ print config of discord</strong></summary>
     </br>
     <a href="https://discord.com/developers/applications"><img src="https://github.com/NukeZzZin/Discord-Akairo-with-express-and-mongodb/blob/master/assets/Captura%20de%20tela%202021-09-07%20194028.png?raw=true"/></a>
     </br>
     <a href="https://discord.com/developers/applications"><img src="https://github.com/NukeZzZin/Discord-Akairo-with-express-and-mongodb/blob/master/assets/imagem_2021-09-09_182214.png?raw=true"/></a>
-</details>
+</details> -->
 
 #### 🚚 Installation
 1. Clone the repository using `git clone https://github.com/NukeZzZin/Discord-Akairo-with-express-and-mongodb.git` in your terminal.
