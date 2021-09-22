@@ -1,5 +1,5 @@
 import { AkairoClient, CommandHandler, ListenerHandler } from "discord-akairo";
-import { Intents, Message } from "discord.js";
+import { Intents } from "discord.js";
 import path from "path";
 import Logger from "../utils/logger";
 import ExtendedClietInterface from "./interfaces/ExtendedCliet";

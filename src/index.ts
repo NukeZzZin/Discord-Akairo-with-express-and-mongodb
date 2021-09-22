@@ -7,7 +7,7 @@ import "dotenv/config";
 
 const client: ExtendedClient = new ExtendedClient({ owners: process.env.DISCORD_OWNERS, token: process.env.DISCORD_TOKEN });
 
-mongoose.connect(`${process.env.DATABASE_URI}`, { useNewUrlParser: true, useUnifiedTopology: true }, async (error) => {
+mongoose.connect(`${process.env.DATABASE_URI}`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, async (error) => {
     await Logger.sucess("Connected to database.");
     if (error) return Logger.error("unable to connect to database.");
     return server.listen(process.env.PORT || 8000, async () => {
