@@ -16,12 +16,12 @@ const client: ExtendedClient = new ExtendedClient({ owners: process.env.DISCORD_
 //     });
 // });
 
-mongoose.connect(`${process.env.DATABASE_URI}`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }).then(async () => {
+mongoose.connect(String(process.env.DATABASE_URI), { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }).then(async () => {
     await Logger.sucess("Connected to database.");
     return server.listen(process.env.PORT || 8000, async () => {
         await Logger.sucess(`server running in http://localhost:${process.env.PORT || 8000}`)
         return client.start();
     });
-}).catch((error) => Logger.error("unable to connect to database."))
+}).catch((error) => Logger.error("unable to connect to database."));
 
 export default client;
